@@ -1,103 +1,124 @@
-# Quiz Application
+# 🎓 Quiz Application
 
-A full-stack MERN (MongoDB, Express, React, Node.js) quiz application that allows users to sign up, take quizzes with questions fetched from the Open Trivia Database, and view detailed reports of their performance.
+A full-stack **MERN** (MongoDB, Express, React, Node.js) quiz application designed to test your knowledge with dynamic questions fetched from the Open Trivia Database. It features secure user authentication, timed quiz sessions, and detailed performance reports.
 
-## Features
+## ✨ Features
 
-- **User Authentication**: Secure Login and Signup functionality using JWT.
-- **Dynamic Quizzes**: Fetches random questions from the OpenTDB API.
-- **Timed Sessions**: 30-minute countdown timer for each quiz.
-- **Interactive Interface**: 
-  - Navigate between questions.
-  - Track visited and answered questions.
-  - Real-time answer saving.
-- **Detailed Reports**: 
-  - View score and time taken.
-  - Review answers with correct/incorrect indicators.
-  - Historical data of past quizzes on the dashboard.
-- **Responsive Design**: Modern UI that works on desktop and mobile.
+- **🔐 User Authentication**: Secure Login and Signup using JWT (JSON Web Tokens).
+- **🎲 Dynamic Quizzes**: Fetches 15 random questions from the OpenTDB API for every session.
+- **⏱️ Timed Sessions**: 30-minute countdown timer with auto-submission.
+- **📱 Interactive Interface**:
+  - Grid navigation for questions.
+  - Visual indicators for visited, answered, and current questions.
+  - Real-time answer saving (prevents data loss on refresh).
+- **📊 Detailed Analytics**:
+  - Instant score calculation.
+  - Question-by-question breakdown with correct answers.
+  - Dashboard history of all previous attempts.
+- **🎨 Modern UI**: Responsive design with a clean, dark-themed aesthetic.
 
-## Tech Stack
+## 🛠️ Tech Stack
 
-- **Frontend**: React, Vite, React Router, Axios, CSS Modules.
-- **Backend**: Node.js, Express, MongoDB, Mongoose, JWT, Axios.
+### Frontend
+- **React**: UI Library
+- **Vite**: Build Tool
+- **React Router**: Navigation
+- **Axios**: API Requests
+- **CSS Modules**: Styling
 
-## Prerequisites
+### Backend
+- **Node.js & Express**: Server & API
+- **MongoDB & Mongoose**: Database & ODM
+- **JWT**: Authentication
+- **BcryptJS**: Password Hashing
 
-- Node.js (v14 or higher)
-- MongoDB (Local or Atlas connection string)
+## 🚀 Getting Started
 
-## Installation & Local Setup
+### Prerequisites
+- **Node.js** (v14+)
+- **MongoDB** (Local instance or Atlas URI)
 
-1.  **Clone the repository**
-    ```bash
-    git clone <repository-url>
-    cd Quiz2
-    ```
+### 1. Clone the Repository
+```bash
+git clone <repository-url>
+cd Quiz2
+```
 
-2.  **Backend Setup**
-    ```bash
-    cd backend
-    npm install
-    ```
-    - Create a `.env` file in the `backend` directory:
-      ```env
-      PORT=3000
-      MONGODB_URI=mongodb://localhost:27017/quizapp  # Or your MongoDB Atlas URI
-      JWT_SECRET=your_jwt_secret_key
-      ```
-    - Start the backend server:
-      ```bash
-      npm run dev
-      ```
+### 2. Backend Setup
+Navigate to the backend folder and install dependencies:
+```bash
+cd backend
+npm install
+```
 
-3.  **Frontend Setup**
-    ```bash
-    cd ../frontend
-    npm install
-    ```
-    - Start the frontend development server:
-      ```bash
-      npm run dev
-      ```
+Create a `.env` file in the `backend` directory:
+```env
+PORT=3000
+MONGODB_URI=your_mongodb_connection_string
+JWT_SECRET=your_super_secret_key
+```
 
-4.  **Access the App**
-    - Open your browser and navigate to `http://localhost:5173`.
+Start the server:
+```bash
+npm run dev
+```
+*The backend runs on `http://localhost:3000`*
 
-## Deployment
+### 3. Frontend Setup
+Open a new terminal, navigate to the frontend folder, and install dependencies:
+```bash
+cd frontend
+npm install
+```
 
-### Deploying to Vercel (Frontend)
+Start the development server:
+```bash
+npm run dev
+```
+*The frontend runs on `http://localhost:5173`*
 
-1.  Push your code to a GitHub repository.
-2.  Go to [Vercel](https://vercel.com) and import your project.
-3.  Set the **Root Directory** to `frontend`.
-4.  Vercel should automatically detect Vite.
-5.  **Environment Variables**:
-    - If your backend is deployed, set `VITE_API_URL` to your backend URL.
-    - *Note*: You might need to update `frontend/src/api.js` to use `import.meta.env.VITE_API_URL` instead of hardcoded localhost if you haven't already.
+## 🌍 Deployment
 
-### Deploying Backend (Render/Heroku/Vercel)
+### Deploying to Vercel
 
-1.  **Render/Heroku**: Connect your repo and set the Root Directory to `backend`. Set environment variables (`MONGODB_URI`, `JWT_SECRET`).
-2.  **Vercel**: You can deploy Express apps to Vercel as Serverless functions. You would need to add a `vercel.json` configuration in the `backend` folder.
+This project is configured for easy deployment on Vercel.
 
-## Project Structure
+#### **Backend Deployment**
+1.  Push your code to GitHub.
+2.  Import the project in Vercel.
+3.  Set the **Root Directory** to `backend`.
+4.  Add Environment Variables: `MONGODB_URI` and `JWT_SECRET`.
+5.  Deploy!
+
+#### **Frontend Deployment**
+1.  Import the **same** repository in Vercel (create a new project).
+2.  Set the **Root Directory** to `frontend`.
+3.  Vercel will auto-detect Vite.
+4.  Add Environment Variable:
+    - `VITE_API_URL`: The URL of your deployed backend (e.g., `https://your-backend.vercel.app/api`).
+5.  Deploy!
+
+## 📂 Project Structure
 
 ```
 Quiz2/
-├── backend/            # Express Server & API Routes
-│   ├── models/         # Mongoose Models (User, Quiz)
-│   ├── routes/         # API Endpoints (Auth, Quiz)
-│   ├── middleware/     # Auth Middleware
-│   └── server.js       # Entry point
-├── frontend/           # React Client
+├── backend/
+│   ├── middleware/   # Auth protection
+│   ├── models/       # User & Quiz Schemas
+│   ├── routes/       # Auth & Quiz Endpoints
+│   ├── server.js     # App Entry Point
+│   └── vercel.json   # Vercel Config
+├── frontend/
 │   ├── src/
-│   │   ├── context/    # Auth Context
-│   │   ├── pages/      # Dashboard, Quiz, Login, Report
-│   │   └── api.js      # Axios instance
+│   │   ├── context/  # Auth State Management
+│   │   ├── pages/    # Login, Signup, Dashboard, Quiz, Report
+│   │   ├── api.js    # Axios Configuration
+│   │   ├── App.jsx   # Routing Logic
+│   │   └── main.jsx  # React Entry
+│   └── vite.config.js
 └── README.md
 ```
 
-## License
+## 📝 License
 
-This project is for educational purposes.
+This project is created for educational purposes.

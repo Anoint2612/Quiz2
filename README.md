@@ -2,6 +2,8 @@
 
 A full-stack **MERN** (MongoDB, Express, React, Node.js) quiz application designed to test your knowledge with dynamic questions fetched from the Open Trivia Database. It features secure user authentication, timed quiz sessions, and detailed performance reports.
 
+### Live Vercel Link : https://quizcausalfunnel.vercel.app/login
+Also the backend is deployed on render with the required env variables.
 ## ✨ Features
 
 - **🔐 User Authentication**: Secure Login and Signup using JWT (JSON Web Tokens).

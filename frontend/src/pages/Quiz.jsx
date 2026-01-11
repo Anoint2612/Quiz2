@@ -25,11 +25,7 @@ export default function Quiz() {
                 try {
                     const res = await api.get(`/quiz/session/${sessionId}`);
                     setQuestions(res.data.questions);
-                    // Calculate remaining time? For now reset to duration or implement server-side time tracking
-                    // The backend stores startTime, so we could calculate remaining time
-                    // But for simplicity let's use the duration sent back
-                    setTimer(res.data.duration); // This might reset timer on reload if backend doesn't adjust
-                    // Ideally backend should send remaining time
+                    setTimer(res.data.duration);
                     setLoading(false);
                 } catch (err) {
                     console.error(err);
@@ -92,8 +88,7 @@ export default function Quiz() {
             navigate(`/report/${sessionId}`);
         } catch (err) {
             console.error('Failed to submit', err);
-            // Fallback or retry?
-            navigate(`/report/${sessionId}`); // Even if it fails, maybe it was already submitted?
+            navigate(`/report/${sessionId}`);
         }
     };
 

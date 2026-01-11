@@ -15,9 +15,6 @@ export const AuthProvider = ({ children }) => {
             if (token) {
                 try {
                     // Verify token and get user data
-                    // For now, we decode manually or just trust existence + API verification
-                    // Let's assume we store user in localstorage too for quick load, or fetch it
-                    // Ideally fetch from /auth/user
                     const res = await api.get('/auth/user');
                     setUser(res.data);
                 } catch (err) {

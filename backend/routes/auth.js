@@ -6,23 +6,22 @@ const User = require('../models/User');
 
 // @route   POST /api/auth/signup
 // @desc    Register a new user
-// @access  Public
 router.post('/signup', async (req, res) => {
     try {
         const { username, email, password } = req.body;
 
-        // Validation
+
         if (!username || !email || !password) {
             return res.status(400).json({ error: 'Please enter all fields' });
         }
 
-        // Check for existing user
+
         const existingUser = await User.findOne({ email });
         if (existingUser) {
             return res.status(400).json({ error: 'User already exists' });
         }
 
-        // Hash password
+
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
 
@@ -57,23 +56,22 @@ router.post('/signup', async (req, res) => {
 
 // @route   POST /api/auth/login
 // @desc    Login user
-// @access  Public
 router.post('/login', async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        // Validation
+
         if (!email || !password) {
             return res.status(400).json({ error: 'Please enter all fields' });
         }
 
-        // Check for user
+
         const user = await User.findOne({ email });
         if (!user) {
             return res.status(400).json({ error: 'User does not exist' });
         }
 
-        // Validate password
+
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
             return res.status(400).json({ error: 'Invalid credentials' });
@@ -102,11 +100,8 @@ router.post('/login', async (req, res) => {
 
 // @route   GET /api/auth/user
 // @desc    Get user data
-// @access  Private
 router.get('/user', async (req, res) => {
-    // This route expects the auth middleware to attach user to req
-    // We'll need to update the auth middleware to verify JWT
-    // For now, let's just return a placeholder or implement verification here if middleware isn't ready
+
     try {
         const token = req.header('Authorization')?.replace('Bearer ', '');
         if (!token) return res.status(401).json({ error: 'No token, authorization denied' });

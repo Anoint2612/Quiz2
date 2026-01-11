@@ -19,15 +19,11 @@ const decodeHTML = (html) => {
 
 // @route   POST /api/quiz/start
 // @desc    Start a new quiz session
-// @access  Private
-// @route   POST /api/quiz/start
-// @desc    Start a new quiz session
-// @access  Private
 router.post('/start', protect, async (req, res) => {
     try {
         let { amount, duration } = req.body;
 
-        // Validate and set defaults
+
         const validAmounts = [15, 30, 45];
         const validDurations = [5, 10, 15, 30];
 
@@ -43,10 +39,10 @@ router.post('/start', protect, async (req, res) => {
         }
 
         let questions = responseData.results.map((q, index) => {
-            // Combine correct and incorrect answers
+
             const allAnswers = [q.correct_answer, ...q.incorrect_answers];
 
-            // Shuffle answers
+
             const shuffledAnswers = allAnswers.sort(() => Math.random() - 0.5);
 
             return {
@@ -60,7 +56,7 @@ router.post('/start', protect, async (req, res) => {
             };
         });
 
-        // Ensure questions is an array with proper shapes
+
         if (!Array.isArray(questions) || questions.length === 0) {
             return res.status(500).json({ error: 'No questions returned from API' });
         }
@@ -100,7 +96,6 @@ router.post('/start', protect, async (req, res) => {
 
 // @route   POST /api/quiz/answer
 // @desc    Save answer for a question
-// @access  Private
 router.post('/answer', protect, async (req, res) => {
     try {
         const { sessionId, questionId, answer } = req.body;
@@ -131,7 +126,6 @@ router.post('/answer', protect, async (req, res) => {
 
 // @route   POST /api/quiz/visit
 // @desc    Mark question as visited
-// @access  Private
 router.post('/visit', protect, async (req, res) => {
     try {
         const { sessionId, questionId } = req.body;
@@ -159,7 +153,6 @@ router.post('/visit', protect, async (req, res) => {
 
 // @route   GET /api/quiz/status/:sessionId
 // @desc    Get session status
-// @access  Private
 router.get('/status/:sessionId', protect, async (req, res) => {
     try {
         const { sessionId } = req.params;
@@ -184,8 +177,7 @@ router.get('/status/:sessionId', protect, async (req, res) => {
 });
 
 // @route   GET /api/quiz/session/:sessionId
-// @desc    Get stored questions for a session (without correct answers) so client can resume
-// @access  Private
+// @desc    Get stored questions for a session
 router.get('/session/:sessionId', protect, async (req, res) => {
     try {
         const { sessionId } = req.params;
@@ -214,7 +206,6 @@ router.get('/session/:sessionId', protect, async (req, res) => {
 
 // @route   POST /api/quiz/submit
 // @desc    Submit quiz
-// @access  Private
 router.post('/submit', protect, async (req, res) => {
     try {
         const { sessionId } = req.body;
@@ -272,7 +263,6 @@ router.post('/submit', protect, async (req, res) => {
 
 // @route   GET /api/quiz/history
 // @desc    Get all completed quizzes for current user
-// @access  Private
 router.get('/history', protect, async (req, res) => {
     try {
         const quizzes = await Quiz.find({
@@ -300,7 +290,6 @@ router.get('/history', protect, async (req, res) => {
 
 // @route   GET /api/quiz/results/:sessionId
 // @desc    Get detailed results for a specific quiz
-// @access  Private
 router.get('/results/:sessionId', protect, async (req, res) => {
     try {
         const { sessionId } = req.params;
